@@ -26,6 +26,10 @@ public class ChatBotController
 		{
 			quit();
 		}
+		else
+		{
+			applicationView.showChatBotModel("Camron");
+		}
 	}
 	
 	private void quit()
