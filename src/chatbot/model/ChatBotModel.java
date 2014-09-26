@@ -5,6 +5,10 @@ public class ChatBotModel
 	private String name;
 	private int chatCount;
 
+	/**
+	 * Creates a Chatbot object with the supplied name and initializes the current number of chats to zero.
+	 * @param name The supplied name for the Chatbot
+	 */
 	public ChatBotModel(String name)
 	{
 		this.name = name;
