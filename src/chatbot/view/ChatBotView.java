@@ -25,6 +25,11 @@ public class ChatBotView
 				if (result.equalsIgnoreCase("yes"))
 				{
 					JOptionPane.showMessageDialog(null, "Cool! We have that in common.");
+					result = JOptionPane.showInputDialog(null, "What muscian do you like the most?");
+					if ((result.equalsIgnoreCase("James Carter")) || (result.equalsIgnoreCase("Charlie Parker")) || (result.equalsIgnoreCase("Miles Davis")))
+					{
+						JOptionPane.showMessageDialog(null, "I like that musican too.");
+					}
 				}
 				else
 				{
