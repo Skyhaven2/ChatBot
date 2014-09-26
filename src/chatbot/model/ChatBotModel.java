@@ -34,4 +34,16 @@ public class ChatBotModel
 	{
 		chatCount++;
 	}
+	
+	public boolean quitChecker(String input)
+	{
+		boolean okToQuit = false;
+		
+		if(input.equalsIgnoreCase("exit"))
+		{
+			okToQuit = true;
+		}
+		
+		return okToQuit;
+	}
 }
