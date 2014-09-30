@@ -20,16 +20,11 @@ public class ChatBotController
 	{
 		String result = applicationView.showChatBotModel("Camron");
 		
-		
-		
-		if (myChatBot.quitChecker(result))
+		while(!myChatBot.quitChecker(result))
 		{
+			result = applicationView.showChatBotModel(result);
+		}
 			quit();
-		}
-		else
-		{
-			applicationView.showChatBotModel("Camron");
-		}
 	}
 	
 	private void quit()
