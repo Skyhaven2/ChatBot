@@ -1,7 +1,10 @@
 package chatbot.model;
 
+import java.util.ArrayList;
+
 public class ChatBotModel
 {
+	private ArrayList<String> memeList;
 	private String name;
 	private int chatCount;
 
@@ -59,11 +62,17 @@ public class ChatBotModel
 	{
 		boolean okToQuit = false;
 		
-		if(input.equalsIgnoreCase("exit"))
+		if(input != null && input.equalsIgnoreCase("exit"))
 		{
 			okToQuit = true;
 		}
 		
 		return okToQuit;
+	}
+	
+	private boolean memeChecker(String currentString)
+	{
+		boolean isAMeme = false;
+		return isAMeme;
 	}
 }

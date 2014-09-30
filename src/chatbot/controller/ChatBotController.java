@@ -22,7 +22,7 @@ public class ChatBotController
 		
 		while(!myChatBot.quitChecker(result))
 		{
-			result = applicationView.showChatBotModel(result);
+			result = applicationView.showChatBotModel("Camron");
 		}
 			quit();
 	}

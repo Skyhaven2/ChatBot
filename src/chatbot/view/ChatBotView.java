@@ -19,7 +19,7 @@ public class ChatBotView
 		JOptionPane.showMessageDialog(null, "Hello, " + currentInput);
 		result = JOptionPane.showInputDialog(null, "What topic would you like to talk about? Options: Music");
 		
-		if (result.equalsIgnoreCase("music"))
+		if (result != null && result.equalsIgnoreCase("music"))
 		{
 			result = JOptionPane.showInputDialog(null, "I like jazz. Do you like jazz?");
 				if (result.equalsIgnoreCase("yes"))
