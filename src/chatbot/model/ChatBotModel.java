@@ -9,37 +9,43 @@ public class ChatBotModel
 	private int chatCount;
 
 	/**
-	 * Creates a ChatBot object with the supplied name and initializes the current number of chats to zero.
-	 * @param name The supplied name for the ChatBot
+	 * Creates a ChatBot object with the supplied name and initializes the
+	 * current number of chats to zero.
+	 * 
+	 * @param name
+	 *            The supplied name for the ChatBot
 	 */
 	public ChatBotModel(String name)
 	{
+		memeList = new ArrayList<String>();
 		this.name = name;
 		chatCount = 0;
+		fillTheMemeList();
 	}
-	
-	/**
-	 * Processes input from the user against the checker methods. Returns the next output for the view.
-	 * @param currentInput The supplied text.
-	 * @return The processed text based on checker or other methods.
-	 */
-	public String processText(String currentInput)
-	{
-		String result = "";
-		return result;
-	}
-	
+
 	/**
 	 * This returns the supplied name for the ChatBot.
+	 * 
 	 * @return name
 	 */
 	public String getName()
 	{
 		return name;
 	}
+	
+	private void fillTheMemeList()
+	{
+		memeList.add("music");
+		memeList.add("Final Fantasy");
+		memeList.add("cool beans");
+		memeList.add("Marching Band");
+		memeList.add("*slap*");
+		memeList.add("doge");
+	}
 
 	/**
 	 * This returns the current number of chats.
+	 * 
 	 * @return chatCount
 	 */
 	public int getChatCount()
@@ -49,13 +55,14 @@ public class ChatBotModel
 
 	/**
 	 * This sets the name of the ChatBot to the parameter.
+	 * 
 	 * @param name
 	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
-	
+
 	/**
 	 * This adds one to the ChatCount.
 	 */
@@ -63,35 +70,55 @@ public class ChatBotModel
 	{
 		chatCount++;
 	}
-	
+
 	/**
-	 * This checks if the user wants to exit. It happens when the user types "quit".
+	 * Processes input from the user against the checker methods. Returns the
+	 * next output for the view.
+	 * 
+	 * @param currentInput
+	 *            The supplied text.
+	 * @return The processed text based on checker or other methods.
+	 */
+	public String processText(String currentInput)
+	{
+		String result = "";
+		return result;
+	}
+
+	/**
+	 * This checks if the user wants to exit. It happens when the user types
+	 * "quit".
+	 * 
 	 * @param input
 	 * @return okToQuit
 	 */
 	public boolean quitChecker(String input)
 	{
 		boolean okToQuit = false;
-		
-		if(input != null && input.equalsIgnoreCase("quit"))
+
+		if (input != null && input.equalsIgnoreCase("quit"))
 		{
 			okToQuit = true;
 		}
-		
+
 		return okToQuit;
 	}
-	
-	public void createMemeList()
-	{
-		memeList.add("Music");
-	}
-	
-	public boolean memeChecker(String currentString)
+
+	private boolean memeChecker(String input)
 	{
 		boolean isAMeme = false;
-		for (String memes : memeList)
+		
+		for(String currentMeme : memeList)
 		{
-			if (currentString.equalsIgnoreCase(memes))
+			if(input.equalsIgnoreCase(currentMeme))
+			{
+				isAMeme = true;
+			}
+		}
+		
+		for(int loopCounter = 0; loopCounter < memeList.size(); loopCounter++)
+		{
+			if(input.equalsIgnoreCase(memeList.get(loopCounter)))
 			{
 				isAMeme = true;
 			}
