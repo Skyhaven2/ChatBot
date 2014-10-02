@@ -9,7 +9,7 @@ public class ChatBotModel
 	private int chatCount;
 
 	/**
-	 * Creates a Chatbot object with the supplied name and initializes the current number of chats to zero.
+	 * Creates a ChatBot object with the supplied name and initializes the current number of chats to zero.
 	 * @param name The supplied name for the ChatBot
 	 */
 	public ChatBotModel(String name)
@@ -17,7 +17,18 @@ public class ChatBotModel
 		this.name = name;
 		chatCount = 0;
 	}
-
+	
+	/**
+	 * Processes input from the user against the checker methods. Returns the next output for the view.
+	 * @param currentInput The supplied text.
+	 * @return The processed text based on checker or other methods.
+	 */
+	public String processText(String currentInput)
+	{
+		String result = "";
+		return result;
+	}
+	
 	/**
 	 * This returns the supplied name for the ChatBot.
 	 * @return name
@@ -62,7 +73,7 @@ public class ChatBotModel
 	{
 		boolean okToQuit = false;
 		
-		if(input != null && input.equalsIgnoreCase("exit"))
+		if(input != null && input.equalsIgnoreCase("quit"))
 		{
 			okToQuit = true;
 		}
@@ -70,9 +81,22 @@ public class ChatBotModel
 		return okToQuit;
 	}
 	
-	private boolean memeChecker(String currentString)
+	public void createMemeList()
+	{
+		memeList.add("Music");
+	}
+	
+	public boolean memeChecker(String currentString)
 	{
 		boolean isAMeme = false;
+		for (String memes : memeList)
+		{
+			if (currentString.equalsIgnoreCase(memes))
+			{
+				isAMeme = true;
+			}
+		}
+		
 		return isAMeme;
 	}
 }

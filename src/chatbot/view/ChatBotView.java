@@ -3,42 +3,39 @@ package chatbot.view;
 import javax.swing.JOptionPane;
 
 import chatbot.controller.ChatBotController;
+import chatbot.model.ChatBotModel;
 
 public class ChatBotView
 {
 	private ChatBotController baseController;
-	
+
 	public ChatBotView(ChatBotController baseController)
 	{
 		this.baseController = baseController;
 	}
+
+	/**
+	 * Shows a String from the ChatBot with the availability of user input.
+	 * @param currentInput The supplied String.
+	 * @return The users typed response.
+	 */
 	
-	public String showChatBotModel(String currentInput)
+	public String showChatBotDialog(String currentInput)
 	{
 		String result = "";
-		JOptionPane.showMessageDialog(null, "Hello, " + currentInput);
-		result = JOptionPane.showInputDialog(null, "What topic would you like to talk about? Options: Music");
+
+		result = JOptionPane.showInputDialog(null, baseController.getMyChatBot().getName() + " says: " + currentInput);
 		
-		if (result != null && result.equalsIgnoreCase("music"))
-		{
-			result = JOptionPane.showInputDialog(null, "I like jazz. Do you like jazz?");
-				if (result.equalsIgnoreCase("yes"))
-				{
-					JOptionPane.showMessageDialog(null, "Cool! We have that in common.");
-					result = JOptionPane.showInputDialog(null, "What muscian do you like the most?");
-					if ((result.equalsIgnoreCase("James Carter")) || (result.equalsIgnoreCase("Charlie Parker")) || (result.equalsIgnoreCase("Miles Davis")))
-					{
-						JOptionPane.showMessageDialog(null, "I like that musican too.");
-					}
-				}
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Well, I won't hold that against you.");
-				}
-			
-		}
-		result = JOptionPane.showInputDialog(null, "are you done?");
 		return result;
 	}
 	
+	/**
+	 * Shows a String from the ChatBot as a popup window.
+	 * @param currentInput The string from the ChatBot.
+	 */
+	public void showChatBotMessage(String currentInput)
+	{
+		JOptionPane.showMessageDialog(null, baseController.getMyChatBot().getName() + " says: " + currentInput);
+	}
+
 }
