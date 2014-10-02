@@ -99,8 +99,6 @@ public class ChatBotModel
 				result = "not a meme, try again";
 			}
 		}
-
-		 result = contentChecker(result);
 		
 		return result;
 	}
@@ -159,6 +157,7 @@ public class ChatBotModel
 		return isVeryLong;
 	}
 	
+	//.contatins looks for that string exactly
 	private String contentChecker(String input)
 	{
 		String topic = "";
