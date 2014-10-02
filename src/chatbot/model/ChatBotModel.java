@@ -32,7 +32,7 @@ public class ChatBotModel
 	{
 		return name;
 	}
-	
+
 	private void fillTheMemeList()
 	{
 		memeList.add("music");
@@ -82,6 +82,26 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
+
+		if (stringChecker(currentInput))
+		{
+			result = "Woah, you talk too fast!";
+		}
+		else
+		{
+
+			if (memeChecker(currentInput))
+			{
+				result = "wow, " + currentInput + " is a meme. Wahoo!";
+			}
+			else
+			{
+				result = "not a meme, try again";
+			}
+		}
+
+		 result = contentChecker(result);
+		
 		return result;
 	}
 
@@ -107,23 +127,45 @@ public class ChatBotModel
 	private boolean memeChecker(String input)
 	{
 		boolean isAMeme = false;
-		
-		for(String currentMeme : memeList)
+
+		for (String currentMeme : memeList)
 		{
-			if(input.equalsIgnoreCase(currentMeme))
+			if (input.equalsIgnoreCase(currentMeme))
 			{
 				isAMeme = true;
 			}
 		}
-		
-		for(int loopCounter = 0; loopCounter < memeList.size(); loopCounter++)
+
+		for (int loopCounter = 0; loopCounter < memeList.size(); loopCounter++)
 		{
-			if(input.equalsIgnoreCase(memeList.get(loopCounter)))
+			if (input.equalsIgnoreCase(memeList.get(loopCounter)))
 			{
 				isAMeme = true;
 			}
 		}
-		
+
 		return isAMeme;
+	}
+
+	private boolean stringChecker(String input)
+	{
+		boolean isVeryLong = false;
+		int length = input.length();
+		if (length > 30)
+		{
+			isVeryLong = true;
+		}
+
+		return isVeryLong;
+	}
+	
+	private String contentChecker(String input)
+	{
+		String topic = "";
+		if(input.contains("music"))
+		{
+			topic = "music";
+		}
+		return topic;
 	}
 }
