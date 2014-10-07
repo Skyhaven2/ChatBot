@@ -161,9 +161,9 @@ public class ChatBotModel
 	private String contentChecker(String input)
 	{
 		String topic = "";
-		if(input.contains("music"))
+		if(input.contains("Hey"))
 		{
-			topic = "music";
+			topic = "Hey";
 		}
 		return topic;
 	}
