@@ -7,6 +7,8 @@ public class ChatBotModel
 	private ArrayList<String> memeList;
 	private String name;
 	private int chatCount;
+	private boolean isStillDiscussing = false;
+	private String topic = "";
 
 	/**
 	 * Creates a ChatBot object with the supplied name and initializes the
@@ -35,10 +37,10 @@ public class ChatBotModel
 
 	private void fillTheMemeList()
 	{
-		memeList.add("music");
-		memeList.add("Final Fantasy");
+		memeList.add("I had fun once, it was awful.");
+		memeList.add("ROFL");
 		memeList.add("cool beans");
-		memeList.add("Marching Band");
+		memeList.add("sax appeal");
 		memeList.add("*slap*");
 		memeList.add("doge");
 	}
@@ -82,24 +84,71 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-
-		if (stringChecker(currentInput))
+		int randomPosition = (int) (Math.random() * 3);
+		if (currentInput != null)
 		{
-			result = "Woah, you talk too fast!";
-		}
-		else
-		{
-
-			if (memeChecker(currentInput))
+			if (!isStillDiscussing)
 			{
-				result = "wow, " + currentInput + " is a meme. Wahoo!";
+				if (randomPosition == 0)
+				{
+					if (stringChecker(currentInput))
+					{
+						result = "Woah, you talk to fast!";
+					}
+
+					else
+					{
+						result = "You are talking so sloooow.";
+					}
+				}
+				else if (randomPosition == 1)
+				{
+					if (contentChecker(currentInput))
+					{
+						findTopic(currentInput);
+						if (topic.equalsIgnoreCase("Final Fantasy"))
+						{
+							result = "Cool, I love Final Fantasy! Who is your favorite character?";
+							isStillDiscussing = true;
+						}
+					}
+					else
+					{
+						result = "I don't want to talk about that...";
+					}
+				}
+				else
+				{
+					if (memeChecker(currentInput))
+					{
+						result = "Wow, " + currentInput + " is a meme. Wahoo!";
+					}
+					else
+					{
+						result = "Do you like using memes? Because I didn't see you use one.";
+					}
+				}
 			}
 			else
 			{
-				result = "not a meme, try again";
+				if (topic.equalsIgnoreCase("Final Fantasy"))
+				{
+					if (currentInput.equalsIgnoreCase("Hope Esthiem"))
+					{
+						result = "He is my favorite character.";
+					}
+					if (currentInput.equalsIgnoreCase("Light"))
+					{
+						result = "She is my second favorite character.";
+					}
+					else
+					{
+						isStillDiscussing = false;
+					}
+				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -122,6 +171,13 @@ public class ChatBotModel
 		return okToQuit;
 	}
 
+	/**
+	 * This checks to see if the string input is a meme.
+	 * 
+	 * @param input
+	 *            the string input
+	 * @return Returns true if it is a meme.
+	 */
 	private boolean memeChecker(String input)
 	{
 		boolean isAMeme = false;
@@ -145,6 +201,13 @@ public class ChatBotModel
 		return isAMeme;
 	}
 
+	/**
+	 * Checks to see if the string is longer than 30 Characters
+	 * 
+	 * @param input
+	 *            The current input string.
+	 * @return Returns true or false
+	 */
 	private boolean stringChecker(String input)
 	{
 		boolean isVeryLong = false;
@@ -156,15 +219,30 @@ public class ChatBotModel
 
 		return isVeryLong;
 	}
-	
-	//.contatins looks for that string exactly
-	private String contentChecker(String input)
+
+	/**
+	 * Checks to see if a word appears somewhere in string. It must be seperated
+	 * by spaces.
+	 * 
+	 * @param input
+	 *            The current input string
+	 * @return Returns true or false
+	 */
+	private boolean contentChecker(String input)
 	{
-		String topic = "";
-		if(input.contains("Hey"))
+		boolean hasContent = false;
+		if (input.contains("Final Fantasy"))
 		{
-			topic = "Hey";
+			hasContent = true;
 		}
-		return topic;
+		return hasContent;
+	}
+	
+	private void findTopic(String input)
+	{
+		if (input.contains("Final Fantasy"))
+		{
+			topic = "Final Fantasy";
+		}
 	}
 }
