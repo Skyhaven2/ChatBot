@@ -85,7 +85,7 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-		int randomPosition = (int) (Math.random() * 4);
+		int randomPosition = (int) (Math.random() * 5);
 		if (currentInput != null)
 		{
 			if (!isStillDiscussing)
@@ -102,13 +102,23 @@ public class ChatBotModel
 						result = "You are talking so sloooow.";
 					}
 				}
-				else if (randomPosition == 1 || randomPosition == 3)
+				else if (randomPosition == 1 || randomPosition == 3 || randomPosition == 4)
 				{
 					if (contentChecker(currentInput))
 					{
 						if (topic.equalsIgnoreCase("Final Fantasy"))
 						{
-							result = "Cool, I love Final Fantasy! Who is your favorite character?";
+							result = "I love Final Fantasy! Who is your favorite character?";
+							isStillDiscussing = true;
+						}
+						else if (topic.equalsIgnoreCase("Minecraft"))
+						{
+							result = "Minecraft is a fun game. What is your favorite mob.";
+							isStillDiscussing = true;
+						}
+						else if (topic.equalsIgnoreCase("Colors"))
+						{
+							result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
 							isStillDiscussing = true;
 						}
 					}
@@ -129,7 +139,7 @@ public class ChatBotModel
 					}
 				}
 			}
-			else
+			else if (isStillDiscussing)
 			{
 				if (topic.equalsIgnoreCase("Final Fantasy"))
 				{
@@ -138,6 +148,10 @@ public class ChatBotModel
 				else if (topic.equalsIgnoreCase("Minecraft"))
 				{
 					result = topicMinecraft(currentInput);
+				}
+				else if (topic.equalsIgnoreCase("Colors"))
+				{
+					result = topicColors(currentInput);
 				}
 			}
 		}
@@ -234,12 +248,19 @@ public class ChatBotModel
 			topic = "Minecraft";
 			hasContent = true;
 		}
+		else if (input.contains("Colors"))
+		{
+			topic = "Colors";
+			hasContent = true;
+		}
 		return hasContent;
 	}
 
 	/**
 	 * This method returns responses for the Final Fantasy topic.
-	 * @param currentInput The input the user typed in
+	 * 
+	 * @param currentInput
+	 *            The input the user typed in
 	 * @return The message to be displayed
 	 */
 	private String topicFinalFantasy(String currentInput)
@@ -326,13 +347,42 @@ public class ChatBotModel
 
 		return result;
 	}
-	
+
+	/**
+	 * This method returns responses for the Minecraft topic.
+	 * 
+	 * @param currentInput
+	 *            The input the user typed in
+	 * @return THe message to be displayed
+	 */
 	private String topicMinecraft(String currentInput)
 	{
 		String result = "";
 		if (talkPostion == 0)
 		{
-			
+			if (currentInput.contains("Creeper"))
+			{
+				result = "Really? I think these guys are super annoying. Have you built anything cool on Minecraft?";
+			}
+			else if (currentInput.contains("Ender"))
+			{
+				result = "Yeah, that guy can be tough. Have you built anything cool on Minecraft?";
+			}
+			else if (currentInput.contains("Ghast"))
+			{
+				result = "If you don't have cobble, this guy can make traveling the nether hard. Have you built anything cool on Minecraft?";
+			}
+			else
+			{
+				result = "That mob isn't very noteworthy. Have you built anything cool on Minecraft?";
+			}
+			talkPostion = 1;
+		}
+		else if (talkPostion == 1)
+		{
+			result = "If I could see. I might know if that was cool looking or not. I don't want to talk about " + topic + " anymore";
+			talkPostion = 0;
+			isStillDiscussing = false;
 		}
 		else
 		{
@@ -340,6 +390,28 @@ public class ChatBotModel
 			isStillDiscussing = false;
 			result = "I don't want to talk about " + topic + " anymore";
 		}
+		return result;
+	}
+
+	private String topicColors(String currentInput)
+	{
+		String result = "";
+		if (talkPostion == 0)
+		{
+			if (currentInput.contains("Blue"))
+			{
+				result = "That is my favorite color.";
+				talkPostion = 1;
+			}
+		}
+		else
+		{
+			result = "I don't want to talk about " + topic + " anymore.";
+			isStillDiscussing = false;
+			talkPostion = 0;
+
+		}
+
 		return result;
 	}
 }
