@@ -7,6 +7,7 @@ public class ChatBotModel
 	private ArrayList<String> memeList;
 	private String name;
 	private int chatCount;
+	private int talkPostion = 0;
 	private boolean isStillDiscussing = false;
 	private String topic = "";
 
@@ -84,7 +85,7 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-		int randomPosition = (int) (Math.random() * 3);
+		int randomPosition = (int) (Math.random() * 4);
 		if (currentInput != null)
 		{
 			if (!isStillDiscussing)
@@ -101,11 +102,10 @@ public class ChatBotModel
 						result = "You are talking so sloooow.";
 					}
 				}
-				else if (randomPosition == 1)
+				else if (randomPosition == 1 || randomPosition == 3)
 				{
 					if (contentChecker(currentInput))
 					{
-						findTopic(currentInput);
 						if (topic.equalsIgnoreCase("Final Fantasy"))
 						{
 							result = "Cool, I love Final Fantasy! Who is your favorite character?";
@@ -133,18 +133,11 @@ public class ChatBotModel
 			{
 				if (topic.equalsIgnoreCase("Final Fantasy"))
 				{
-					if (currentInput.equalsIgnoreCase("Hope Esthiem"))
-					{
-						result = "He is my favorite character.";
-					}
-					if (currentInput.equalsIgnoreCase("Light"))
-					{
-						result = "She is my second favorite character.";
-					}
-					else
-					{
-						isStillDiscussing = false;
-					}
+					result = topicFinalFantasy(currentInput);
+				}
+				else if (topic.equalsIgnoreCase("Minecraft"))
+				{
+					result = topicMinecraft(currentInput);
 				}
 			}
 		}
@@ -163,7 +156,7 @@ public class ChatBotModel
 	{
 		boolean okToQuit = false;
 
-		if (input != null && input.equalsIgnoreCase("quit"))
+		if ((input != null && input.equalsIgnoreCase("quit")) || (input != null && input.equalsIgnoreCase("exit")))
 		{
 			okToQuit = true;
 		}
@@ -221,7 +214,7 @@ public class ChatBotModel
 	}
 
 	/**
-	 * Checks to see if a word appears somewhere in string. It must be seperated
+	 * Checks to see if a word appears somewhere in string. It must be separated
 	 * by spaces.
 	 * 
 	 * @param input
@@ -233,16 +226,120 @@ public class ChatBotModel
 		boolean hasContent = false;
 		if (input.contains("Final Fantasy"))
 		{
+			topic = "Final Fantasy";
+			hasContent = true;
+		}
+		else if (input.contains("Minecraft"))
+		{
+			topic = "Minecraft";
 			hasContent = true;
 		}
 		return hasContent;
 	}
-	
-	private void findTopic(String input)
+
+	/**
+	 * This method returns responses for the Final Fantasy topic.
+	 * @param currentInput The input the user typed in
+	 * @return The message to be displayed
+	 */
+	private String topicFinalFantasy(String currentInput)
 	{
-		if (input.contains("Final Fantasy"))
+		String result = "";
+		if (topic.equalsIgnoreCase("Final Fantasy"))
 		{
-			topic = "Final Fantasy";
+			if (talkPostion == 0)
+			{
+				if (currentInput.contains("Hope"))
+				{
+					result = "He is my favorite character. What is your favorite area in FFXIII?";
+				}
+				else if (currentInput.contains("Lightning"))
+				{
+					result = "She is my second favorite character. What is your favorite area in FFXIII?";
+				}
+				else if (currentInput.contains("Sazh"))
+				{
+					result = "I love Sazh! He is so cool. What is your favorite area in FFXIII?";
+				}
+				else
+				{
+					result = "That is not one of my favorite characters. What is your favorite area in FFXIII?";
+				}
+				talkPostion = 1;
+			}
+			else if (talkPostion == 1)
+			{
+				if (currentInput.contains("Oerba"))
+				{
+					result = "Oerba is a cool place. I like the music in that area. What is your favorite FFXIII song?";
+				}
+				else if (currentInput.contains("Nautilus"))
+				{
+					result = "I think Nautilus would be a cool place to visit. What is your favorite FFXIII song?";
+				}
+				else if (currentInput.contains("Grapa"))
+				{
+					result = "The Grapa Whitewood is very pretty. What is your favorite FFXIII song?";
+				}
+				else if (currentInput.contains("Palumpolum"))
+				{
+					result = "I like Palumpolum but I wouldn't want to live their. What is your favorite FFXIII song?";
+				}
+				else
+				{
+					result = "That place is ok but I like others better. What is your favorite FFXIII song?";
+				}
+				talkPostion = 2;
+			}
+			else if (talkPostion == 2)
+			{
+				if (currentInput.contains("Ragnarok"))
+				{
+					result = "Ragnarok has a lot of nice vocal parts. I don't want to talk about " + topic + " anymore.";
+				}
+				else if (currentInput.contains("Dreadnoughts"))
+				{
+					result = "March of the Dreadnoughts is a fun upbeat song. I don't want to talk about " + topic + " anymore";
+				}
+				else if (currentInput.contains("Prelude"))
+				{
+					result = "This song made me so excited to play the game. I don't want to talk about " + topic + " anymore";
+				}
+				else if (currentInput.contains("Lightning's"))
+				{
+					result = "This song is epic but also sad. I don't want to talk about " + topic + " anymore";
+				}
+				else
+				{
+					result = "That song is ok but I like others better. I don't want to talk about " + topic + " anymore";
+				}
+				talkPostion = 0;
+				isStillDiscussing = false;
+			}
+			else
+			{
+				talkPostion = 0;
+				isStillDiscussing = false;
+				result = "I don't want to talk about " + topic + " anymore.";
+			}
 		}
+
+		return result;
+	}
+	
+	private String topicMinecraft(String currentInput)
+	{
+		String result = "";
+		if (talkPostion == 0)
+		{
+			
+		}
+		else
+		{
+			talkPostion = 0;
+			isStillDiscussing = false;
+			result = "I don't want to talk about " + topic + " anymore";
+		}
+		return result;
 	}
 }
