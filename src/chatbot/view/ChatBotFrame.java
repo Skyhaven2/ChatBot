@@ -18,8 +18,7 @@ public class ChatBotFrame extends JFrame
 	private void setupFrame()
 	{
 		this.setContentPane(basePanel);
-		this.setSize(600, 400);
-		this.setResizable(false);
+		this.setSize(600, 600);
 		setVisible(true);
 	}
 
