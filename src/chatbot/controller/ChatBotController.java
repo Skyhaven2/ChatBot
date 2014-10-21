@@ -1,7 +1,9 @@
 package chatbot.controller;
 
 import javax.swing.JOptionPane;
+
 import chatbot.model.ChatBotModel;
+import chatbot.view.ChatBotFrame;
 import chatbot.view.ChatBotView;
 
 /**
@@ -15,6 +17,7 @@ public class ChatBotController
 	private ChatBotModel myChatBot;
 	private String startMessage;
 	private String quitMessage;
+	private ChatBotFrame appFrame;
 		
 	public ChatBotController()
 	{
@@ -22,6 +25,7 @@ public class ChatBotController
 		myChatBot = new ChatBotModel("Camron");
 		startMessage = "Welcome to the " + myChatBot.getName() + " chatbot. What is your name?";
 		quitMessage = "Goodbye cruel user :(";
+		appFrame = new ChatBotFrame(this);
 	}
 	
 	public ChatBotModel getMyChatBot()
@@ -33,12 +37,12 @@ public class ChatBotController
 	{
 		String result = applicationView.showChatBotDialog(startMessage);
 		
-		while(!myChatBot.quitChecker(result))
-		{
-			result = myChatBot.processText(result);
-			result = applicationView.showChatBotDialog(result);
-		}
-			quit();
+//		while(!myChatBot.quitChecker(result))
+//		{
+//			result = myChatBot.processText(result);
+//			result = applicationView.showChatBotDialog(result);
+//		}
+//			quit();
 	}
 	
 	private void quit()
