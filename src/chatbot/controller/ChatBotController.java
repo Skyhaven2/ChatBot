@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import chatbot.model.ChatBotModel;
 import chatbot.view.ChatBotFrame;
+import chatbot.view.ChatBotPanel;
 import chatbot.view.ChatBotView;
 
 /**
@@ -22,7 +23,7 @@ public class ChatBotController
 	public ChatBotController()
 	{
 		applicationView = new ChatBotView(this);
-		myChatBot = new ChatBotModel("Camron");
+		myChatBot = new ChatBotModel("Faron");
 		startMessage = "Welcome to the " + myChatBot.getName() + " chatbot. What is your name?";
 		quitMessage = "Goodbye cruel user :(";
 		appFrame = new ChatBotFrame(this);
