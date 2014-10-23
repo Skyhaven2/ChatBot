@@ -40,10 +40,7 @@ public class ChatBotPanel extends JPanel
 		chatBotTitle = new Label("ChatBot");
 		chatBotTitle.setFont(new Font("Arial", Font.BOLD, 40));
 		chatBotName = new Label(baseController.getMyChatBot().getName());
-		baseLayout.putConstraint(SpringLayout.NORTH, chatBotName, 40, SpringLayout.NORTH, this);
 		userNameLabel = new Label("You");
-		baseLayout.putConstraint(SpringLayout.NORTH, userNameLabel, 40, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, userNameLabel, 365, SpringLayout.WEST, this);
 
 		setupPane();
 		setupPanel();
@@ -94,6 +91,9 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, userChatPane, 60, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, userChatPane, 20, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatBotName, 20, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatBotName, 40, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, userNameLabel, 40, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, userNameLabel, 365, SpringLayout.WEST, this);
 	}
 
 	/**
