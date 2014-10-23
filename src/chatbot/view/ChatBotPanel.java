@@ -14,8 +14,10 @@ public class ChatBotPanel extends JPanel
 	private JButton InputButton;
 	private JTextField InputTextField;
 	private SpringLayout baseLayout;
-	private JTextArea chatArea;
-	private JScrollPane chatPane;
+	private JTextArea chatBotArea;
+	private JScrollPane chatBotPane;
+	private JScrollPane userChatPane;
+	private JTextArea userChatArea;
 
 	public ChatBotPanel(ChatBotController baseController)
 	{
@@ -24,8 +26,14 @@ public class ChatBotPanel extends JPanel
 		InputButton = new JButton("Enter");
 		InputTextField = new JTextField(45);
 		baseLayout = new SpringLayout();
-		chatArea = new JTextArea(30, 45);
-		chatPane = new JScrollPane(chatArea);
+		baseLayout.putConstraint(SpringLayout.NORTH, InputButton, 0, SpringLayout.NORTH, InputTextField);
+		baseLayout.putConstraint(SpringLayout.WEST, InputButton, 5, SpringLayout.EAST, InputTextField);
+		baseLayout.putConstraint(SpringLayout.WEST, InputTextField, 20, SpringLayout.WEST, this);
+		chatBotArea = new JTextArea(20, 15);
+		chatBotPane = new JScrollPane(chatBotArea);
+		baseLayout.putConstraint(SpringLayout.NORTH, InputTextField, 5, SpringLayout.SOUTH, chatBotPane);
+		userChatArea = new JTextArea(20, 15);
+		userChatPane = new JScrollPane(userChatArea);
 
 		setupPane();
 		setupPanel();
@@ -35,8 +43,11 @@ public class ChatBotPanel extends JPanel
 
 	private void setupPane()
 	{
-		chatArea.setLineWrap(true);
-		chatArea.setWrapStyleWord(true);
+		chatBotArea.setLineWrap(true);
+		chatBotArea.setWrapStyleWord(true);
+		userChatArea.setLineWrap(true);
+		userChatArea.setWrapStyleWord(true);
+		
 	}
 	
 	/**
@@ -49,7 +60,8 @@ public class ChatBotPanel extends JPanel
 		this.setLayout(baseLayout);
 		this.add(InputButton);
 		this.add(InputTextField);
-		this.add(chatPane);
+		this.add(chatBotPane);
+		this.add(userChatPane);
 	}
 
 	/**
@@ -57,12 +69,11 @@ public class ChatBotPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
-		baseLayout.putConstraint(SpringLayout.NORTH, InputButton, -1, SpringLayout.NORTH, InputTextField);
-		baseLayout.putConstraint(SpringLayout.SOUTH, InputTextField, -10, SpringLayout.SOUTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, InputButton, 5, SpringLayout.EAST, InputTextField);
-		baseLayout.putConstraint(SpringLayout.WEST, InputTextField, 20, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 20, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, chatPane, 20, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatBotPane, 20, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, InputTextField, 0, SpringLayout.EAST, chatBotPane);
+		baseLayout.putConstraint(SpringLayout.WEST, chatBotPane, 220, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, userChatPane, 20, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, userChatPane, 20, SpringLayout.WEST, this);
 	}
 
 	/**
