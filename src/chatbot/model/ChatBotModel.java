@@ -2,6 +2,8 @@ package chatbot.model;
 
 import java.util.ArrayList;
 
+import chatbot.view.ChatBotPanel;
+
 public class ChatBotModel
 {
 	private ArrayList<String> memeList;

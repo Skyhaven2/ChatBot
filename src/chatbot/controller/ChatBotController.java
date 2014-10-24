@@ -37,6 +37,7 @@ public class ChatBotController
 	public void start()
 	{
 		String result = applicationView.showChatBotDialog(startMessage);
+		ChatBotPanel.setUserName(result);
 		
 //		while(!myChatBot.quitChecker(result))
 //		{

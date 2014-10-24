@@ -24,7 +24,7 @@ public class ChatBotPanel extends JPanel
 	private JTextArea userChatArea;
 	private Label chatBotTitle;
 	private Label chatBotName;
-	private Label userNameLabel;
+	private static Label userNameLabel;
 
 	public ChatBotPanel(ChatBotController baseController)
 	{
@@ -33,14 +33,29 @@ public class ChatBotPanel extends JPanel
 		InputButton = new JButton("Enter");
 		InputTextField = new JTextField(45);
 		baseLayout = new SpringLayout();
+		baseLayout.putConstraint(SpringLayout.WEST, InputTextField, 20, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.EAST, InputTextField, -6, SpringLayout.WEST, InputButton);
 		chatBotArea = new JTextArea(15, 15);
+		chatBotArea.setFont(new Font("Monospaced", Font.BOLD, 13));
+		chatBotArea.setForeground(new Color(255, 0, 0));
 		chatBotPane = new JScrollPane(chatBotArea);
+		baseLayout.putConstraint(SpringLayout.WEST, chatBotPane, 20, SpringLayout.WEST, this);
 		userChatArea = new JTextArea(15, 15);
+		userChatArea.setFont(new Font("Monospaced", Font.BOLD, 13));
+		userChatArea.setForeground(new Color(0, 0, 255));
 		userChatPane = new JScrollPane(userChatArea);
+		baseLayout.putConstraint(SpringLayout.NORTH, InputButton, 4, SpringLayout.SOUTH, userChatPane);
+		baseLayout.putConstraint(SpringLayout.EAST, InputButton, 0, SpringLayout.EAST, userChatPane);
+		baseLayout.putConstraint(SpringLayout.WEST, userChatPane, 220, SpringLayout.WEST, this);
 		chatBotTitle = new Label("ChatBot");
-		chatBotTitle.setFont(new Font("Arial", Font.BOLD, 40));
+		chatBotTitle.setForeground(Color.BLACK);
+		chatBotTitle.setFont(new Font("Arial", Font.BOLD, 30));
 		chatBotName = new Label(baseController.getMyChatBot().getName());
-		userNameLabel = new Label("You");
+		chatBotName.setFont(new Font("Arial", Font.BOLD, 12));
+		chatBotName.setForeground(Color.BLACK);
+		userNameLabel = new Label("?????????????????");
+		userNameLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		baseLayout.putConstraint(SpringLayout.WEST, userNameLabel, 220, SpringLayout.WEST, this);
 
 		setupPane();
 		setupPanel();
@@ -79,21 +94,14 @@ public class ChatBotPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
-		baseLayout.putConstraint(SpringLayout.WEST, InputTextField, 20, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, InputTextField, 5, SpringLayout.SOUTH, chatBotPane);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatBotPane, 60, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, chatBotPane, 220, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, InputButton, 4, SpringLayout.SOUTH, chatBotPane);
-		baseLayout.putConstraint(SpringLayout.EAST, InputButton, 0, SpringLayout.EAST, chatBotPane);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatBotTitle, 0, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatBotTitle, 130, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.EAST, InputTextField, -6, SpringLayout.WEST, InputButton);
 		baseLayout.putConstraint(SpringLayout.NORTH, userChatPane, 60, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, userChatPane, 20, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatBotName, 20, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatBotName, 40, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, userNameLabel, 40, SpringLayout.NORTH, this);
-		baseLayout.putConstraint(SpringLayout.WEST, userNameLabel, 365, SpringLayout.WEST, this);
 	}
 
 	/**
@@ -108,5 +116,10 @@ public class ChatBotPanel extends JPanel
 				InputTextField.setText(InputTextField.getText()+" :)");
 			}
 		});
+	}
+	
+	public static void setUserName(String name)
+	{
+		userNameLabel.setText(name);
 	}
 }
