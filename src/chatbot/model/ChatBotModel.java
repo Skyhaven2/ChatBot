@@ -217,7 +217,7 @@ public class ChatBotModel
 	 *            The current input string.
 	 * @return Returns true or false
 	 */
-	private boolean stringChecker(String input)
+	public static boolean stringChecker(String input)
 	{
 		boolean isVeryLong = false;
 		int length = input.length();
