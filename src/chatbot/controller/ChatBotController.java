@@ -9,17 +9,18 @@ import chatbot.view.ChatBotView;
 
 /**
  * Runs the ChatBot Project. Owns the model and associated views.
+ * 
  * @author Camron Heaps
- *@version 1.2 10/2/14
+ * @version 2.2 11/3/14
  */
 public class ChatBotController
 {
 	private ChatBotView applicationView;
-	private ChatBotModel myChatBot;
+	public ChatBotModel myChatBot;
 	private String startMessage;
 	private String quitMessage;
 	private ChatBotFrame appFrame;
-		
+
 	public ChatBotController()
 	{
 		applicationView = new ChatBotView(this);
@@ -28,29 +29,16 @@ public class ChatBotController
 		quitMessage = "Goodbye cruel user :(";
 		appFrame = new ChatBotFrame(this);
 	}
-	
+
 	public ChatBotModel getMyChatBot()
 	{
 		return myChatBot;
 	}
-	
+
 	public void start()
 	{
 		String result = applicationView.showChatBotDialog(startMessage);
 		ChatBotPanel.setUserName(result);
-		
-//		while(!myChatBot.quitChecker(result))
-//		{
-//			result = myChatBot.processText(result);
-//			result = applicationView.showChatBotDialog(result);
-//		}
-//			quit();
+		ChatBotPanel testPanel = (ChatBotPanel) appFrame.getContentPane();
 	}
-	
-	private void quit()
-	{
-		applicationView.showChatBotMessage(quitMessage);
-		System.exit(0);
-	}
-
 }

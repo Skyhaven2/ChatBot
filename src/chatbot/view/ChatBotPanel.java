@@ -121,8 +121,18 @@ public class ChatBotPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent click)
 			{
-				userChatArea.setText(userChatArea.getText() + "\n" + "\n" + InputTextField.getText());
-				InputTextField.setText("");
+				if(!InputTextField.getText().equals(""))
+				{
+					String result = InputTextField.getText();
+					userChatArea.setText(userChatArea.getText() + "\n" + "\n" + InputTextField.getText());
+					result = baseController.myChatBot.processText(result);
+					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + result);
+					InputTextField.setText("");
+				}
+				if(InputTextField.getText().equalsIgnoreCase("quit"))
+				{
+					System.exit(0);
+				}
 			}
 		});
 
@@ -146,5 +156,10 @@ public class ChatBotPanel extends JPanel
 	public static void setUserName(String name)
 	{
 		userNameLabel.setText(name);
+	}
+	
+	public void showTextMessage(String userInput)
+	{
+		userChatArea.append("\n" + "\n" + userInput);
 	}
 }
