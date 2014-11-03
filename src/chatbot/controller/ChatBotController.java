@@ -41,4 +41,9 @@ public class ChatBotController
 		ChatBotPanel.setUserName(result);
 		ChatBotPanel testPanel = (ChatBotPanel) appFrame.getContentPane();
 	}
+	
+	private String tlk(String Input)
+	{
+		return Input;
+	}
 }

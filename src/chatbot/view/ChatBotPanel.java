@@ -27,6 +27,8 @@ public class ChatBotPanel extends JPanel
 	private Label chatBotName;
 	private static Label userNameLabel;
 	private JButton checkLengthButton;
+	private Label checkersLabel;
+	private JButton checkMemeButton;
 
 	public ChatBotPanel(ChatBotController baseController)
 	{
@@ -43,6 +45,11 @@ public class ChatBotPanel extends JPanel
 		chatBotName = new Label(baseController.getMyChatBot().getName());
 		userNameLabel = new Label("?????????????????");
 		checkLengthButton = new JButton("Length");
+		checkersLabel = new Label("Checkers");
+		checkMemeButton = new JButton("Meme");
+		checkMemeButton.setSize(5000, 5000);
+		baseLayout.putConstraint(SpringLayout.NORTH, checkMemeButton, 5, SpringLayout.SOUTH, checkLengthButton);
+		baseLayout.putConstraint(SpringLayout.EAST, checkMemeButton, -3, SpringLayout.EAST, checkLengthButton);
 
 		setupPane();
 		setupPanel();
@@ -67,6 +74,7 @@ public class ChatBotPanel extends JPanel
 		chatBotName.setFont(new Font("Arial", Font.BOLD, 12));
 		chatBotName.setForeground(Color.BLACK);
 		userNameLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		checkersLabel.setFont(new Font("Arial", Font.PLAIN, 12));
 
 	}
 
@@ -86,6 +94,8 @@ public class ChatBotPanel extends JPanel
 		this.add(chatBotName);
 		this.add(userNameLabel);
 		this.add(checkLengthButton);
+		this.add(checkersLabel);
+		this.add(checkMemeButton);
 	}
 
 	/**
@@ -108,8 +118,10 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.EAST, InputButton, 0, SpringLayout.EAST, userChatPane);
 		baseLayout.putConstraint(SpringLayout.WEST, userChatPane, 220, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatBotPane, 20, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, checkLengthButton, 2, SpringLayout.NORTH, chatBotPane);
-		baseLayout.putConstraint(SpringLayout.EAST, checkLengthButton, -3, SpringLayout.WEST, userChatPane);
+		baseLayout.putConstraint(SpringLayout.WEST, checkLengthButton, -8, SpringLayout.WEST, checkersLabel);
+		baseLayout.putConstraint(SpringLayout.EAST, checkersLabel, 0, SpringLayout.WEST, userChatPane);
+		baseLayout.putConstraint(SpringLayout.NORTH, checkLengthButton, 0, SpringLayout.SOUTH, checkersLabel);
+		baseLayout.putConstraint(SpringLayout.NORTH, checkersLabel, 0, SpringLayout.NORTH, chatBotPane);
 	}
 
 	/**
@@ -128,10 +140,6 @@ public class ChatBotPanel extends JPanel
 					result = baseController.myChatBot.processText(result);
 					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + result);
 					InputTextField.setText("");
-				}
-				if(InputTextField.getText().equalsIgnoreCase("quit"))
-				{
-					System.exit(0);
 				}
 			}
 		});

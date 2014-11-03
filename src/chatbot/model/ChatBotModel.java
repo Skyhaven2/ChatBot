@@ -12,6 +12,7 @@ public class ChatBotModel
 	private int talkPostion = 0;
 	private boolean isStillDiscussing = false;
 	private String topic = "";
+	private ChatBotUser myUser;
 
 	/**
 	 * Creates a ChatBot object with the supplied name and initializes the
@@ -25,6 +26,7 @@ public class ChatBotModel
 		memeList = new ArrayList<String>();
 		this.name = name;
 		chatCount = 0;
+		myUser = new ChatBotUser();
 		fillTheMemeList();
 	}
 
@@ -36,6 +38,16 @@ public class ChatBotModel
 	public String getName()
 	{
 		return name;
+	}
+
+	public ChatBotUser getMyUser()
+	{
+		return myUser;
+	}
+
+	public void setMyUser(ChatBotUser myUser)
+	{
+		this.myUser = myUser;
 	}
 
 	private void fillTheMemeList()
@@ -87,24 +99,12 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-		int randomPosition = (int) (Math.random() * 5);
+		int randomPosition = (int) (Math.random() * 4);
 		if (currentInput != null)
 		{
 			if (!isStillDiscussing)
 			{
-				if (randomPosition == 0)
-				{
-					if (stringChecker(currentInput))
-					{
-						result = "Woah, you talk to fast!";
-					}
-
-					else
-					{
-						result = "You are talking so sloooow.";
-					}
-				}
-				else if (randomPosition == 1 || randomPosition == 3 || randomPosition == 4)
+				if (randomPosition == 0 || randomPosition == 1 || randomPosition == 2)
 				{
 					if (contentChecker(currentInput))
 					{
@@ -157,6 +157,7 @@ public class ChatBotModel
 				}
 			}
 		}
+		updateChatCount();
 
 		return result;
 	}
