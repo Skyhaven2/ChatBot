@@ -47,9 +47,6 @@ public class ChatBotPanel extends JPanel
 		checkLengthButton = new JButton("Length");
 		checkersLabel = new Label("Checkers");
 		checkMemeButton = new JButton("Meme");
-		checkMemeButton.setSize(5000, 5000);
-		baseLayout.putConstraint(SpringLayout.NORTH, checkMemeButton, 5, SpringLayout.SOUTH, checkLengthButton);
-		baseLayout.putConstraint(SpringLayout.EAST, checkMemeButton, -3, SpringLayout.EAST, checkLengthButton);
 
 		setupPane();
 		setupPanel();
@@ -75,7 +72,6 @@ public class ChatBotPanel extends JPanel
 		chatBotName.setForeground(Color.BLACK);
 		userNameLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		checkersLabel.setFont(new Font("Arial", Font.PLAIN, 12));
-
 	}
 
 	/**
@@ -122,6 +118,8 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.EAST, checkersLabel, 0, SpringLayout.WEST, userChatPane);
 		baseLayout.putConstraint(SpringLayout.NORTH, checkLengthButton, 0, SpringLayout.SOUTH, checkersLabel);
 		baseLayout.putConstraint(SpringLayout.NORTH, checkersLabel, 0, SpringLayout.NORTH, chatBotPane);
+		baseLayout.putConstraint(SpringLayout.NORTH, checkMemeButton, 5, SpringLayout.SOUTH, checkLengthButton);
+		baseLayout.putConstraint(SpringLayout.EAST, checkMemeButton, -3, SpringLayout.EAST, checkLengthButton);
 	}
 
 	/**
