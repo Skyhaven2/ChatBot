@@ -6,7 +6,8 @@ import chatbot.view.ChatBotPanel;
 
 public class ChatBotModel
 {
-	private ArrayList<String> memeList;
+	private static ArrayList<String> memeList;
+	public static ArrayList<String> topicList;
 	private String name;
 	private int chatCount;
 	private int talkPostion = 0;
@@ -24,10 +25,12 @@ public class ChatBotModel
 	public ChatBotModel(String name)
 	{
 		memeList = new ArrayList<String>();
+		topicList = new ArrayList<String>();
 		this.name = name;
 		chatCount = 0;
 		myUser = new ChatBotUser();
 		fillTheMemeList();
+		fillTheTopicList();
 	}
 
 	/**
@@ -40,16 +43,30 @@ public class ChatBotModel
 		return name;
 	}
 
+	/**
+	 * Get the information stored about the user.
+	 * 
+	 * @return The user info
+	 */
 	public ChatBotUser getMyUser()
 	{
 		return myUser;
 	}
 
+	/**
+	 * This sets what the user is.
+	 * 
+	 * @param myUser
+	 *            The user
+	 */
 	public void setMyUser(ChatBotUser myUser)
 	{
 		this.myUser = myUser;
 	}
 
+	/**
+	 * This fills the Meme list with memes.
+	 */
 	private void fillTheMemeList()
 	{
 		memeList.add("I had fun once, it was awful.");
@@ -58,6 +75,13 @@ public class ChatBotModel
 		memeList.add("sax appeal");
 		memeList.add("*slap*");
 		memeList.add("doge");
+	}
+	
+	private void fillTheTopicList()
+	{
+		topicList.add("Final Fantasy");
+		topicList.add("Minecraft");
+		topicList.add("Colors");
 	}
 
 	/**
@@ -86,6 +110,7 @@ public class ChatBotModel
 	private void updateChatCount()
 	{
 		chatCount++;
+		ChatBotPanel.updateChatCount(chatCount);
 	}
 
 	/**
@@ -104,41 +129,27 @@ public class ChatBotModel
 		{
 			if (!isStillDiscussing)
 			{
-				if (randomPosition == 0 || randomPosition == 1 || randomPosition == 2)
+				if (contentChecker(currentInput))
 				{
-					if (contentChecker(currentInput))
+					if (topic.equalsIgnoreCase("Final Fantasy"))
 					{
-						if (topic.equalsIgnoreCase("Final Fantasy"))
-						{
-							result = "I love Final Fantasy! Who is your favorite character?";
-							isStillDiscussing = true;
-						}
-						else if (topic.equalsIgnoreCase("Minecraft"))
-						{
-							result = "Minecraft is a fun game. What is your favorite mob.";
-							isStillDiscussing = true;
-						}
-						else if (topic.equalsIgnoreCase("Colors"))
-						{
-							result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
-							isStillDiscussing = true;
-						}
+						result = "I love Final Fantasy! Who is your favorite character?";
+						isStillDiscussing = true;
 					}
-					else
+					else if (topic.equalsIgnoreCase("Minecraft"))
 					{
-						result = "I don't want to talk about that...";
+						result = "Minecraft is a fun game. What is your favorite mob.";
+						isStillDiscussing = true;
+					}
+					else if (topic.equalsIgnoreCase("Colors"))
+					{
+						result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
+						isStillDiscussing = true;
 					}
 				}
 				else
 				{
-					if (memeChecker(currentInput))
-					{
-						result = "Wow, " + currentInput + " is a meme. Wahoo!";
-					}
-					else
-					{
-						result = "Do you like using memes? Because I didn't see you use one.";
-					}
+					result = "I don't want to talk about that...";
 				}
 			}
 			else if (isStillDiscussing)
@@ -188,7 +199,7 @@ public class ChatBotModel
 	 *            the string input
 	 * @return Returns true if it is a meme.
 	 */
-	private boolean memeChecker(String input)
+	public static boolean memeChecker(String input)
 	{
 		boolean isAMeme = false;
 
@@ -356,7 +367,7 @@ public class ChatBotModel
 	 * 
 	 * @param currentInput
 	 *            The input the user typed in
-	 * @return THe message to be displayed
+	 * @return The message to be displayed
 	 */
 	private String topicMinecraft(String currentInput)
 	{
@@ -396,6 +407,13 @@ public class ChatBotModel
 		return result;
 	}
 
+	/**
+	 * This method returns responses for the colors topic.
+	 * 
+	 * @param currentInput
+	 *            The input the user typed in
+	 * @return The message to be displayed.
+	 */
 	private String topicColors(String currentInput)
 	{
 		String result = "";

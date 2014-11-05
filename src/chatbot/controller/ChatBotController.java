@@ -42,7 +42,7 @@ public class ChatBotController
 		ChatBotPanel testPanel = (ChatBotPanel) appFrame.getContentPane();
 	}
 	
-	private String tlk(String Input)
+	private String talk(String Input)
 	{
 		return Input;
 	}

@@ -29,6 +29,10 @@ public class ChatBotPanel extends JPanel
 	private JButton checkLengthButton;
 	private Label checkersLabel;
 	private JButton checkMemeButton;
+	private JButton showTopicsButton;
+	private Label informationLabel;
+	private Label chatCountLabel;
+	public static Label chatCountNumberLabel;
 
 	public ChatBotPanel(ChatBotController baseController)
 	{
@@ -47,6 +51,12 @@ public class ChatBotPanel extends JPanel
 		checkLengthButton = new JButton("Length");
 		checkersLabel = new Label("Checkers");
 		checkMemeButton = new JButton("Meme");
+		showTopicsButton = new JButton("Topics");
+		informationLabel = new Label("Information");
+		chatCountLabel = new Label("Chats:");
+		chatCountNumberLabel = new Label("0");
+
+
 
 		setupPane();
 		setupPanel();
@@ -92,6 +102,10 @@ public class ChatBotPanel extends JPanel
 		this.add(checkLengthButton);
 		this.add(checkersLabel);
 		this.add(checkMemeButton);
+		this.add(showTopicsButton);
+		this.add(informationLabel);
+		this.add(chatCountLabel);
+		this.add(chatCountNumberLabel);
 	}
 
 	/**
@@ -120,6 +134,14 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, checkersLabel, 0, SpringLayout.NORTH, chatBotPane);
 		baseLayout.putConstraint(SpringLayout.NORTH, checkMemeButton, 5, SpringLayout.SOUTH, checkLengthButton);
 		baseLayout.putConstraint(SpringLayout.EAST, checkMemeButton, -3, SpringLayout.EAST, checkLengthButton);
+		baseLayout.putConstraint(SpringLayout.WEST, showTopicsButton, 2, SpringLayout.EAST, chatBotPane);
+		baseLayout.putConstraint(SpringLayout.NORTH, showTopicsButton, 0, SpringLayout.SOUTH, informationLabel);
+		baseLayout.putConstraint(SpringLayout.WEST, informationLabel, 5, SpringLayout.EAST, chatBotPane);
+		baseLayout.putConstraint(SpringLayout.SOUTH, informationLabel, 180, SpringLayout.NORTH, checkersLabel);
+		baseLayout.putConstraint(SpringLayout.WEST, chatCountLabel, 0, SpringLayout.EAST, chatBotPane);
+		baseLayout.putConstraint(SpringLayout.EAST, chatCountNumberLabel, 0, SpringLayout.WEST, userChatPane);
+		baseLayout.putConstraint(SpringLayout.NORTH, chatCountLabel, 0, SpringLayout.NORTH, chatCountNumberLabel);
+		baseLayout.putConstraint(SpringLayout.SOUTH, chatCountNumberLabel, -6, SpringLayout.NORTH, InputTextField);
 	}
 
 	/**
@@ -157,11 +179,39 @@ public class ChatBotPanel extends JPanel
 
 			}
 		});
+		
+		checkMemeButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				if(ChatBotModel.memeChecker(InputTextField.getText()))
+				{
+					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + "Wow, " + InputTextField.getText() + " is a meme. Wahoo!");
+				}
+				else
+				{
+					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + "Do you like using memes? Because I didn't see you use one.");
+				}
+			}
+		});
+		
+		showTopicsButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent click)
+			{
+				chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + ChatBotModel.topicList);
+			}
+		});
 	}
 
 	public static void setUserName(String name)
 	{
 		userNameLabel.setText(name);
+	}
+	
+	public static void updateChatCount(int chatCount)
+	{
+		chatCountNumberLabel.setText(Integer.toString(chatCount));
 	}
 	
 	public void showTextMessage(String userInput)
