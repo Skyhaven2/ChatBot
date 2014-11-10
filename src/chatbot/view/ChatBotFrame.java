@@ -1,17 +1,21 @@
 package chatbot.view;
 
 import javax.swing.JFrame;
+import javax.swing.JRootPane;
 
 import chatbot.controller.ChatBotController;
 
 public class ChatBotFrame extends JFrame
 {
 	private ChatBotPanel basePanel;
-
+	/**
+	 * this is the constructor for ChatBotFrame
+	 * @param baseController
+	 */
 	public ChatBotFrame(ChatBotController baseController)
 	{
 		basePanel = new ChatBotPanel(baseController);
-
+		
 		setupFrame();
 	}
 

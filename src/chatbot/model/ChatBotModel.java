@@ -6,14 +6,43 @@ import chatbot.view.ChatBotPanel;
 
 public class ChatBotModel
 {
+	/**
+	 * This contains all of the memes.
+	 */
 	private static ArrayList<String> memeList;
+	/**
+	 * This contains all of the possible topics that ChatBot can discuss.
+	 */
 	public static ArrayList<String> topicList;
+	/**
+	 * This is the ChatBot's name.
+	 */
 	private String name;
+	/**
+	 * This is the number chats the user has input.
+	 */
 	private int chatCount;
+	/**
+	 * This is the position inside a topic that the chatBot is on.
+	 */
 	private int talkPostion = 0;
+	/**
+	 * False means the chatBot will find a new topic.
+	 * True means the chatBot is currently talking about one topic.
+	 */
 	private boolean isStillDiscussing = false;
+	/**
+	 * This topic currently being discussed.
+	 */
 	private String topic = "";
-	private ChatBotUser myUser;
+	/**
+	 * The current user.
+	 */
+	private static ChatBotUser myUser;
+	/**
+	 * This is the ChatBotPanel class
+	 */
+	private ChatBotPanel myPanel;
 
 	/**
 	 * Creates a ChatBot object with the supplied name and initializes the
@@ -77,6 +106,9 @@ public class ChatBotModel
 		memeList.add("doge");
 	}
 	
+	/**
+	 * This fills the Topic list with topics.
+	 */
 	private void fillTheTopicList()
 	{
 		topicList.add("Final Fantasy");
@@ -124,7 +156,7 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-		int randomPosition = (int) (Math.random() * 4);
+		int randomPosition = (int) (Math.random() * 2);
 		if (currentInput != null)
 		{
 			if (!isStillDiscussing)
@@ -147,6 +179,12 @@ public class ChatBotModel
 						isStillDiscussing = true;
 					}
 				}
+				else if(randomPosition==0)
+				{
+					result = "Lets talk about you! What is your age?";
+					topic = "you";
+					isStillDiscussing = true;
+				}
 				else
 				{
 					result = "I don't want to talk about that...";
@@ -165,6 +203,10 @@ public class ChatBotModel
 				else if (topic.equalsIgnoreCase("Colors"))
 				{
 					result = topicColors(currentInput);
+				}
+				else if (topic.equalsIgnoreCase("you"))
+				{
+					result = topicUser(currentInput);
 				}
 			}
 		}
@@ -434,5 +476,48 @@ public class ChatBotModel
 		}
 
 		return result;
+	}
+	
+	private String topicUser(String currentInput)
+	{
+		String result = "";
+		if (talkPostion == 0)
+		{
+			int currentAge = Integer.parseInt(currentInput);
+			myUser.setAge(currentAge);
+			result = "Do you like video games?";
+			talkPostion = 1;
+		}
+		else if (talkPostion == 1)
+		{
+			if((currentInput.contains("yes")) || (currentInput.contains("Yes")))
+			{
+				myUser.setLikesVideoGames(true);
+			}
+			else
+			{
+				myUser.setLikesVideoGames(false);
+			}
+			result = "Just so you know, I like video games.";
+			talkPostion = 2;
+		}
+		else
+		{
+			result = "I don't want to talk about " + topic + " anymore.";
+			isStillDiscussing = false;
+			talkPostion = 0;
+		}
+		return result;
+	}
+	
+	public void setUserName(String userName)
+	{
+		myUser.setUserName(userName);
+	}
+	public static String getKnownUserInformation()
+	{
+		String userInformation = "";
+		userInformation = myUser.getUserName();
+		return userInformation;
 	}
 }

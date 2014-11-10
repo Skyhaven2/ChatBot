@@ -9,6 +9,10 @@ public class ChatBotView
 {
 	private ChatBotController baseController;
 
+	/**
+	 * This is the constructor for the View
+	 * @param baseController
+	 */
 	public ChatBotView(ChatBotController baseController)
 	{
 		this.baseController = baseController;

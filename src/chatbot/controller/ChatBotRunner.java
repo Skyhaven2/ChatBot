@@ -8,7 +8,7 @@ package chatbot.controller;
 public class ChatBotRunner
 {
 	/**
-	 * Starting ponit for all Java programs.
+	 * Starting point for all Java programs.
 	 * @param args Unused!
 	 */
 	public static void main(String[] args)

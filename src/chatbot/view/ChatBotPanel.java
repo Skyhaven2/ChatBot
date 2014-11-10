@@ -14,26 +14,85 @@ import java.awt.Font;
 
 public class ChatBotPanel extends JPanel
 {
+	/**
+	 * This is the ChatBotController class
+	 */
 	private ChatBotController baseController;
-
+	private ChatBotModel myChatBot;
+	/**
+	 * This button sends information to the ChatBot.
+	 */
 	private JButton InputButton;
+	/**
+	 * This is where the user inputs info
+	 */
 	private JTextField InputTextField;
+	/**
+	 * This is the layout of the GUI
+	 */
 	private SpringLayout baseLayout;
+	/**
+	 * This is where the ChatBot's chats appear
+	 */
 	private JTextArea chatBotArea;
+	/**
+	 * This is what contains the chatBotArea
+	 */
 	private JScrollPane chatBotPane;
+	/**
+	 * This is what contains the userChatArea
+	 */
 	private JScrollPane userChatPane;
+	/**
+	 * This is where the user's Chats appear
+	 */
 	private JTextArea userChatArea;
+	/**
+	 * This is the title of the program
+	 */
 	private Label chatBotTitle;
+	/**
+	 * This is the name of the Chat Bot
+	 */
 	private Label chatBotName;
+	/**
+	 * This is the name of the user
+	 */
 	private static Label userNameLabel;
+	/**
+	 * This executes the length checker
+	 */
 	private JButton checkLengthButton;
+	/**
+	 * This is the word Checkers
+	 */
 	private Label checkersLabel;
+	/**
+	 * This executes the meme checker
+	 */
 	private JButton checkMemeButton;
+	/**
+	 * When pressed, this will display the available topics in the ChatBot's area
+	 */
 	private JButton showTopicsButton;
+	/**
+	 * This is the word Information
+	 */
 	private Label informationLabel;
+	/**
+	 * This is the string "Chats:"
+	 */
 	private Label chatCountLabel;
+	/**
+	 * This displays the current number of chats
+	 */
 	public static Label chatCountNumberLabel;
+	private JButton showUserInfoButton;
 
+	/**
+	 * This is the constructor for the Panel
+	 * @param baseController
+	 */
 	public ChatBotPanel(ChatBotController baseController)
 	{
 		this.baseController = baseController;
@@ -55,15 +114,19 @@ public class ChatBotPanel extends JPanel
 		informationLabel = new Label("Information");
 		chatCountLabel = new Label("Chats:");
 		chatCountNumberLabel = new Label("0");
-
-
+		showUserInfoButton = new JButton("You");
 
 		setupPane();
 		setupPanel();
 		setupLayout();
 		setupListeners();
+//		ChatBotFrame.getRootPane().setDefaultButton(InputButton);
+//		find out why doesn't work
 	}
 
+	/**
+	 * This sets up the properties of the objects
+	 */
 	private void setupPane()
 	{
 		chatBotArea.setLineWrap(true);
@@ -106,6 +169,7 @@ public class ChatBotPanel extends JPanel
 		this.add(informationLabel);
 		this.add(chatCountLabel);
 		this.add(chatCountNumberLabel);
+		this.add(showUserInfoButton);
 	}
 
 	/**
@@ -135,13 +199,15 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, checkMemeButton, 5, SpringLayout.SOUTH, checkLengthButton);
 		baseLayout.putConstraint(SpringLayout.EAST, checkMemeButton, -3, SpringLayout.EAST, checkLengthButton);
 		baseLayout.putConstraint(SpringLayout.WEST, showTopicsButton, 2, SpringLayout.EAST, chatBotPane);
-		baseLayout.putConstraint(SpringLayout.NORTH, showTopicsButton, 0, SpringLayout.SOUTH, informationLabel);
 		baseLayout.putConstraint(SpringLayout.WEST, informationLabel, 5, SpringLayout.EAST, chatBotPane);
 		baseLayout.putConstraint(SpringLayout.SOUTH, informationLabel, 180, SpringLayout.NORTH, checkersLabel);
 		baseLayout.putConstraint(SpringLayout.WEST, chatCountLabel, 0, SpringLayout.EAST, chatBotPane);
 		baseLayout.putConstraint(SpringLayout.EAST, chatCountNumberLabel, 0, SpringLayout.WEST, userChatPane);
 		baseLayout.putConstraint(SpringLayout.NORTH, chatCountLabel, 0, SpringLayout.NORTH, chatCountNumberLabel);
 		baseLayout.putConstraint(SpringLayout.SOUTH, chatCountNumberLabel, -6, SpringLayout.NORTH, InputTextField);
+		baseLayout.putConstraint(SpringLayout.NORTH, showTopicsButton, 5, SpringLayout.SOUTH, informationLabel);
+		baseLayout.putConstraint(SpringLayout.NORTH, showUserInfoButton, 5, SpringLayout.SOUTH, showTopicsButton);
+		baseLayout.putConstraint(SpringLayout.EAST, showUserInfoButton, -8, SpringLayout.EAST, showTopicsButton);
 	}
 
 	/**
@@ -202,18 +268,40 @@ public class ChatBotPanel extends JPanel
 				chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + ChatBotModel.topicList);
 			}
 		});
+		showUserInfoButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + ChatBotModel.getKnownUserInformation());
+			}
+			
+		});
 	}
 
+	/**
+	 * This sets the user's name
+	 * @param name
+	 */
 	public static void setUserName(String name)
 	{
 		userNameLabel.setText(name);
 	}
 	
+	/**
+	 * This updates the Chat Count
+	 * @param chatCount
+	 */
 	public static void updateChatCount(int chatCount)
 	{
 		chatCountNumberLabel.setText(Integer.toString(chatCount));
 	}
 	
+	/**
+	 * This displays the users text
+	 * @param userInput
+	 */
 	public void showTextMessage(String userInput)
 	{
 		userChatArea.append("\n" + "\n" + userInput);
