@@ -70,7 +70,7 @@ public class ChatBotUser
 	 * This gets the boolean likesVideoGames
 	 * @return likesVideoGames
 	 */
-	public boolean isLikesVideoGames()
+	public boolean getLikesVideoGames()
 	{
 		return likesVideoGames;
 	}
@@ -88,7 +88,7 @@ public class ChatBotUser
 	 * This gets the boolean isMale
 	 * @return isMale
 	 */
-	public boolean isMale()
+	public boolean getIsMale()
 	{
 		return isMale;
 	}
@@ -97,7 +97,7 @@ public class ChatBotUser
 	 * This sets the boolean isMale
 	 * @return isMale
 	 */
-	public void setMale(boolean isMale)
+	public void setIsMale(boolean isMale)
 	{
 		this.isMale = isMale;
 	}

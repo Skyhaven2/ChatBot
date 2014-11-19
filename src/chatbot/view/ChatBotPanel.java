@@ -134,11 +134,13 @@ public class ChatBotPanel extends JPanel
 		chatBotArea.setText("---------------");
 		chatBotArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		chatBotArea.setForeground(new Color(255, 0, 0));
+		chatBotArea.setEditable(false);
 		userChatArea.setLineWrap(true);
 		userChatArea.setWrapStyleWord(true);
 		userChatArea.setText("---------------");
 		userChatArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		userChatArea.setForeground(new Color(0, 0, 255));
+		userChatArea.setEditable(false);
 		chatBotTitle.setForeground(Color.BLACK);
 		chatBotTitle.setFont(new Font("Arial", Font.BOLD, 30));
 		chatBotName.setFont(new Font("Arial", Font.BOLD, 12));

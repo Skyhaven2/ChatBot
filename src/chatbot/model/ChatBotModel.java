@@ -7,6 +7,14 @@ import chatbot.view.ChatBotPanel;
 public class ChatBotModel
 {
 	/**
+	 * This is whether the ChatBot knows if the user likes video games or not.
+	 */
+	private static boolean knowsLikesVideoGames = false;
+	/**
+	 * This is whether the ChatBot knows if the user is male or not.
+	 */
+	private static boolean knowsIsMale = false;
+	/**
 	 * This contains all of the memes.
 	 */
 	private static ArrayList<String> memeList;
@@ -27,8 +35,8 @@ public class ChatBotModel
 	 */
 	private int talkPostion = 0;
 	/**
-	 * False means the chatBot will find a new topic.
-	 * True means the chatBot is currently talking about one topic.
+	 * False means the chatBot will find a new topic. True means the chatBot is
+	 * currently talking about one topic.
 	 */
 	private boolean isStillDiscussing = false;
 	/**
@@ -105,7 +113,7 @@ public class ChatBotModel
 		memeList.add("*slap*");
 		memeList.add("doge");
 	}
-	
+
 	/**
 	 * This fills the Topic list with topics.
 	 */
@@ -156,62 +164,95 @@ public class ChatBotModel
 	public String processText(String currentInput)
 	{
 		String result = "";
-		int randomPosition = (int) (Math.random() * 2);
+
 		if (currentInput != null)
 		{
 			if (!isStillDiscussing)
 			{
-				if (contentChecker(currentInput))
-				{
-					if (topic.equalsIgnoreCase("Final Fantasy"))
-					{
-						result = "I love Final Fantasy! Who is your favorite character?";
-						isStillDiscussing = true;
-					}
-					else if (topic.equalsIgnoreCase("Minecraft"))
-					{
-						result = "Minecraft is a fun game. What is your favorite mob.";
-						isStillDiscussing = true;
-					}
-					else if (topic.equalsIgnoreCase("Colors"))
-					{
-						result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
-						isStillDiscussing = true;
-					}
-				}
-				else if(randomPosition==0)
-				{
-					result = "Lets talk about you! What is your age?";
-					topic = "you";
-					isStillDiscussing = true;
-				}
-				else
-				{
-					result = "I don't want to talk about that...";
-				}
+				result = setTopic(currentInput);
 			}
 			else if (isStillDiscussing)
 			{
-				if (topic.equalsIgnoreCase("Final Fantasy"))
-				{
-					result = topicFinalFantasy(currentInput);
-				}
-				else if (topic.equalsIgnoreCase("Minecraft"))
-				{
-					result = topicMinecraft(currentInput);
-				}
-				else if (topic.equalsIgnoreCase("Colors"))
-				{
-					result = topicColors(currentInput);
-				}
-				else if (topic.equalsIgnoreCase("you"))
-				{
-					result = topicUser(currentInput);
-				}
+				result = findTopic(currentInput);
 			}
 		}
 		updateChatCount();
 
+		return result;
+	}
+
+	/**
+	 * This sets the topic according to the user input and returns the first
+	 * response.
+	 * 
+	 * @param currentInput
+	 *            The current input of the user.
+	 * @return The ChatBot response
+	 */
+	private String setTopic(String currentInput)
+	{
+		String result = "";
+		int randomPosition = (int) (Math.random() * 2);
+
+		if (contentChecker(currentInput))
+		{
+			if (topic.equalsIgnoreCase("Final Fantasy"))
+			{
+				result = "I love Final Fantasy! Who is your favorite character?";
+				isStillDiscussing = true;
+			}
+			else if (topic.equalsIgnoreCase("Minecraft"))
+			{
+				result = "Minecraft is a fun game. What is your favorite mob.";
+				isStillDiscussing = true;
+			}
+			else if (topic.equalsIgnoreCase("Colors"))
+			{
+				result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
+				isStillDiscussing = true;
+			}
+		}
+		else if (randomPosition == 0)
+		{
+			result = "Lets talk about you! What is your age?";
+			topic = "you";
+			isStillDiscussing = true;
+		}
+		else
+		{
+			result = "I don't want to talk about that...";
+		}
+
+		return result;
+	}
+
+	/**
+	 * Finds the topic the ChatBot is talking about and sends the current input
+	 * to that topic.
+	 * 
+	 * @param currentInput
+	 *            The input of the user.
+	 * @return The response of the ChatBot.
+	 */
+	private String findTopic(String currentInput)
+	{
+		String result = "";
+		if (topic.equalsIgnoreCase("Final Fantasy"))
+		{
+			result = topicFinalFantasy(currentInput);
+		}
+		else if (topic.equalsIgnoreCase("Minecraft"))
+		{
+			result = topicMinecraft(currentInput);
+		}
+		else if (topic.equalsIgnoreCase("Colors"))
+		{
+			result = topicColors(currentInput);
+		}
+		else if (topic.equalsIgnoreCase("you"))
+		{
+			result = topicUser(currentInput);
+		}
 		return result;
 	}
 
@@ -477,7 +518,7 @@ public class ChatBotModel
 
 		return result;
 	}
-	
+
 	private String topicUser(String currentInput)
 	{
 		String result = "";
@@ -490,16 +531,34 @@ public class ChatBotModel
 		}
 		else if (talkPostion == 1)
 		{
-			if((currentInput.contains("yes")) || (currentInput.contains("Yes")))
+			if ((currentInput.contains("yes")) || (currentInput.contains("Yes")))
 			{
 				myUser.setLikesVideoGames(true);
+				knowsLikesVideoGames = true;
 			}
 			else
 			{
 				myUser.setLikesVideoGames(false);
+				knowsLikesVideoGames = true;
 			}
-			result = "Just so you know, I like video games.";
+			result = "Just so you know, I like video games. Are you Male or Female?";
 			talkPostion = 2;
+		}
+		else if (talkPostion == 2)
+		{
+			if ((currentInput.contains("female")) || (currentInput.contains("Female")))
+			{
+				myUser.setIsMale(false);
+				knowsIsMale = true;
+			}
+			else if ((currentInput.contains("male")) || (currentInput.contains("Male")))
+			{
+				myUser.setIsMale(true);
+				knowsIsMale = true;
+			}
+			result = "I liked learning about you. Let's talk about something else";
+			isStillDiscussing = false;
+			talkPostion = 0;
 		}
 		else
 		{
@@ -509,15 +568,42 @@ public class ChatBotModel
 		}
 		return result;
 	}
-	
+
 	public void setUserName(String userName)
 	{
 		myUser.setUserName(userName);
 	}
+
 	public static String getKnownUserInformation()
 	{
 		String userInformation = "";
-		userInformation = myUser.getUserName();
+		userInformation = ("Name: " + myUser.getUserName());
+		if (myUser.getAge() >= 1)
+		{
+			userInformation = userInformation + "\n" + "Age: " + myUser.getAge();
+		}
+		if (knowsIsMale)
+		{
+			if (myUser.getIsMale())
+			{
+				userInformation = userInformation + "\n" + "Gender: Male";
+			}
+			else
+			{
+				userInformation = userInformation + "\n" + "Gender: Female";
+			}
+		}
+		if (knowsLikesVideoGames)
+		{
+			if (myUser.getLikesVideoGames())
+			{
+				userInformation = userInformation + "\n" + "Likes video games";
+			}
+			else
+			{
+				userInformation = userInformation + "\n" + "Doesn't like video games";
+			}
+		}
 		return userInformation;
 	}
 }
