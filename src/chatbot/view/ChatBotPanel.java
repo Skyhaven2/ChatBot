@@ -131,7 +131,7 @@ public class ChatBotPanel extends JPanel
 	{
 		chatBotArea.setLineWrap(true);
 		chatBotArea.setWrapStyleWord(true);
-		chatBotArea.setText("---------------");
+		chatBotArea.setText("---------------" + "\n" + "What do you want to talk about?" + "\n" + "\n" + "(press the topics button for available topics)");
 		chatBotArea.setFont(new Font("Monospaced", Font.BOLD, 13));
 		chatBotArea.setForeground(new Color(255, 0, 0));
 		chatBotArea.setEditable(false);

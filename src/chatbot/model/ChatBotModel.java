@@ -413,24 +413,25 @@ public class ChatBotModel
 			{
 				if (currentInput.contains("Ragnarok"))
 				{
-					result = "Ragnarok has a lot of nice vocal parts. I don't want to talk about " + topic + " anymore.";
+					result = "Ragnarok has a lot of nice vocal parts.";
 				}
 				else if (currentInput.contains("Dreadnoughts"))
 				{
-					result = "March of the Dreadnoughts is a fun upbeat song. I don't want to talk about " + topic + " anymore";
+					result = "March of the Dreadnoughts is a fun upbeat song.";
 				}
 				else if (currentInput.contains("Prelude"))
 				{
-					result = "This song made me so excited to play the game. I don't want to talk about " + topic + " anymore";
+					result = "This song made me so excited to play the game.";
 				}
 				else if (currentInput.contains("Lightning's"))
 				{
-					result = "This song is epic but also sad. I don't want to talk about " + topic + " anymore";
+					result = "This song is epic but also sad.";
 				}
 				else
 				{
-					result = "That song is ok but I like others better. I don't want to talk about " + topic + " anymore";
+					result = "That song is ok but I like others better.";
 				}
+				result = result + " What do you want to talk about now?";
 				talkPostion = 0;
 				isStillDiscussing = false;
 			}
@@ -439,6 +440,7 @@ public class ChatBotModel
 				talkPostion = 0;
 				isStillDiscussing = false;
 				result = "I don't want to talk about " + topic + " anymore.";
+				result = result + " What do you want to talk about now?";
 			}
 		}
 
@@ -463,21 +465,22 @@ public class ChatBotModel
 			}
 			else if (currentInput.contains("Ender"))
 			{
-				result = "Yeah, that guy can be tough. Have you built anything cool on Minecraft?";
+				result = "Yeah, that guy can be tough. What have you built on Minecraft?";
 			}
 			else if (currentInput.contains("Ghast"))
 			{
-				result = "If you don't have cobble, this guy can make traveling the nether hard. Have you built anything cool on Minecraft?";
+				result = "If you don't have cobble, this guy can make traveling the Nether hard. Have you built anything cool on Minecraft?";
 			}
 			else
 			{
-				result = "That mob isn't very noteworthy. Have you built anything cool on Minecraft?";
+				result = "That mob isn't very noteworthy. What have you built on Minecraft?";
 			}
 			talkPostion = 1;
 		}
 		else if (talkPostion == 1)
 		{
-			result = "If I could see. I might know if that was cool looking or not. I don't want to talk about " + topic + " anymore";
+			result = "If I could see. I might know if that was cool looking or not.";
+			result = result + " What do you want to talk about now?";
 			talkPostion = 0;
 			isStillDiscussing = false;
 		}
@@ -485,7 +488,8 @@ public class ChatBotModel
 		{
 			talkPostion = 0;
 			isStillDiscussing = false;
-			result = "I don't want to talk about " + topic + " anymore";
+			result = "I don't want to talk about " + topic + " anymore.";
+			result = result + " What do you want to talk about now?";
 		}
 		return result;
 	}
@@ -505,12 +509,19 @@ public class ChatBotModel
 			if (currentInput.contains("Blue"))
 			{
 				result = "That is my favorite color.";
-				talkPostion = 1;
 			}
+			else
+			{
+				result = "That is not my favorite color.";
+			}
+			result = result + " What do you want to talk about now?";
+			isStillDiscussing = false;
+			talkPostion = 0;
 		}
 		else
 		{
 			result = "I don't want to talk about " + topic + " anymore.";
+			result = result + " What do you want to talk about now?";
 			isStillDiscussing = false;
 			talkPostion = 0;
 
@@ -519,6 +530,13 @@ public class ChatBotModel
 		return result;
 	}
 
+	/**
+	 * This method returns responses for the user topic.
+	 * 
+	 * @param currentInput
+	 *            The user's current input.
+	 * @return The ChatBot's response.
+	 */
 	private String topicUser(String currentInput)
 	{
 		String result = "";
@@ -556,24 +574,37 @@ public class ChatBotModel
 				myUser.setIsMale(true);
 				knowsIsMale = true;
 			}
-			result = "I liked learning about you. Let's talk about something else";
+			result = "I liked learning about you.";
+			result = result + " What do you want to talk about now?";
 			isStillDiscussing = false;
 			talkPostion = 0;
 		}
 		else
 		{
 			result = "I don't want to talk about " + topic + " anymore.";
+			result = result + " What do you want to talk about now?";
 			isStillDiscussing = false;
 			talkPostion = 0;
 		}
 		return result;
 	}
 
+	/**
+	 * This sets the name of the user.
+	 * 
+	 * @param userName
+	 *            The name of the user.
+	 */
 	public void setUserName(String userName)
 	{
 		myUser.setUserName(userName);
 	}
 
+	/**
+	 * This collects all of the information the ChatBot knows about the user.
+	 * 
+	 * @return A string containing the information.
+	 */
 	public static String getKnownUserInformation()
 	{
 		String userInformation = "";
