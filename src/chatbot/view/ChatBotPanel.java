@@ -88,6 +88,7 @@ public class ChatBotPanel extends JPanel
 	 */
 	public static Label chatCountNumberLabel;
 	private JButton showUserInfoButton;
+	private JButton mashButton;
 
 	/**
 	 * This is the constructor for the Panel
@@ -115,6 +116,7 @@ public class ChatBotPanel extends JPanel
 		chatCountLabel = new Label("Chats:");
 		chatCountNumberLabel = new Label("0");
 		showUserInfoButton = new JButton("You");
+		mashButton = new JButton("Mash");
 
 		setupPane();
 		setupPanel();
@@ -172,6 +174,7 @@ public class ChatBotPanel extends JPanel
 		this.add(chatCountLabel);
 		this.add(chatCountNumberLabel);
 		this.add(showUserInfoButton);
+		this.add(mashButton);
 	}
 
 	/**
@@ -210,6 +213,8 @@ public class ChatBotPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, showTopicsButton, 5, SpringLayout.SOUTH, informationLabel);
 		baseLayout.putConstraint(SpringLayout.NORTH, showUserInfoButton, 5, SpringLayout.SOUTH, showTopicsButton);
 		baseLayout.putConstraint(SpringLayout.EAST, showUserInfoButton, -8, SpringLayout.EAST, showTopicsButton);
+		baseLayout.putConstraint(SpringLayout.NORTH, mashButton, 6, SpringLayout.SOUTH, checkMemeButton);
+		baseLayout.putConstraint(SpringLayout.WEST, mashButton, 6, SpringLayout.EAST, chatBotPane);
 	}
 
 	/**
@@ -232,6 +237,19 @@ public class ChatBotPanel extends JPanel
 			}
 		});
 
+		mashButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent click)
+			{
+				if(ChatBotModel.mashChecker(InputTextField.getText()))
+				{
+					
+				}
+			}
+			
+		});
 		checkLengthButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent click)

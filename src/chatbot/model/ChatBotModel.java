@@ -2,7 +2,10 @@ package chatbot.model;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import chatbot.view.ChatBotPanel;
+import chatbot.view.ChatBotView;
 
 public class ChatBotModel
 {
@@ -51,6 +54,7 @@ public class ChatBotModel
 	 * This is the ChatBotPanel class
 	 */
 	private ChatBotPanel myPanel;
+	private ChatBotView applicationView;
 
 	/**
 	 * Creates a ChatBot object with the supplied name and initializes the
@@ -122,6 +126,7 @@ public class ChatBotModel
 		topicList.add("Final Fantasy");
 		topicList.add("Minecraft");
 		topicList.add("Colors");
+		topicList.add("Music");
 	}
 
 	/**
@@ -211,6 +216,11 @@ public class ChatBotModel
 				result = "Oh, you want to talk about colors? Ok, what is your favorite color?";
 				isStillDiscussing = true;
 			}
+			else if (topic.equalsIgnoreCase("Music"))
+			{
+				result = "I love talking about music. What is your favorite genre?";
+				isStillDiscussing = true;
+			}
 		}
 		else if (randomPosition == 0)
 		{
@@ -252,6 +262,10 @@ public class ChatBotModel
 		else if (topic.equalsIgnoreCase("you"))
 		{
 			result = topicUser(currentInput);
+		}
+		else if (topic.equalsIgnoreCase("Music"))
+		{
+			result = topicMusic(currentInput);
 		}
 		return result;
 	}
@@ -348,6 +362,11 @@ public class ChatBotModel
 		else if (input.contains("Colors"))
 		{
 			topic = "Colors";
+			hasContent = true;
+		}
+		else if (input.contains("Music"))
+		{
+			topic = "Music";
 			hasContent = true;
 		}
 		return hasContent;
@@ -459,15 +478,15 @@ public class ChatBotModel
 		String result = "";
 		if (talkPostion == 0)
 		{
-			if (currentInput.contains("Creeper"))
+			if (currentInput.contains("Creeper") || currentInput.contains("creeper"))
 			{
 				result = "Really? I think these guys are super annoying. Have you built anything cool on Minecraft?";
 			}
-			else if (currentInput.contains("Ender"))
+			else if (currentInput.contains("Ender") || currentInput.contains("ender"))
 			{
 				result = "Yeah, that guy can be tough. What have you built on Minecraft?";
 			}
-			else if (currentInput.contains("Ghast"))
+			else if (currentInput.contains("Ghast") || currentInput.contains("ghast"))
 			{
 				result = "If you don't have cobble, this guy can make traveling the Nether hard. Have you built anything cool on Minecraft?";
 			}
@@ -542,10 +561,17 @@ public class ChatBotModel
 		String result = "";
 		if (talkPostion == 0)
 		{
-			int currentAge = Integer.parseInt(currentInput);
-			myUser.setAge(currentAge);
-			result = "Do you like video games?";
-			talkPostion = 1;
+			try
+			{
+				int currentAge = Integer.parseInt(currentInput);
+				myUser.setAge(currentAge);
+				result = "Do you like video games?";
+				talkPostion = 1;
+			}
+			catch(NumberFormatException currentError)
+			{
+				JOptionPane.showMessageDialog(null, "Please type a numerical value.");
+			}
 		}
 		else if (talkPostion == 1)
 		{
@@ -586,6 +612,41 @@ public class ChatBotModel
 			isStillDiscussing = false;
 			talkPostion = 0;
 		}
+		return result;
+	}
+
+	/**
+	 * This method returns responses for the music topic
+	 * 
+	 * @param currentInput
+	 * @return
+	 */
+	private String topicMusic(String currentInput)
+	{
+		String result = "";
+		if (talkPostion == 0)
+		{
+			if (currentInput.contains(""))
+			{
+				result = "You typed nothing";
+			}
+			else
+			{
+				result = "hi";
+			}
+			result = result + " What do you want to talk about now?";
+			isStillDiscussing = false;
+			talkPostion = 0;
+		}
+		else
+		{
+			result = "I don't want to talk about " + topic + " anymore.";
+			result = result + " What do you want to talk about now?";
+			isStillDiscussing = false;
+			talkPostion = 0;
+
+		}
+
 		return result;
 	}
 
@@ -636,5 +697,27 @@ public class ChatBotModel
 			}
 		}
 		return userInformation;
+	}
+	
+	public static String noMashingDetected(String currentInput)
+	{
+		String noMashing = "Thank you for not mashing your keyboard with ";
+		if (currentInput.length() > 1)
+		{
+			noMashing += currentInput.substring(currentInput.length() / 3, currentInput.length() / 2);
+		}
+		return noMashing;
+	}
+	
+	public static boolean mashChecker(String userInput)
+	{
+		boolean isMashing = false;
+		
+		if (userInput.indexOf("sdf") > -1)
+		{
+			isMashing = true;
+		}
+		
+		return isMashing;
 	}
 }
