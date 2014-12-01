@@ -683,7 +683,7 @@ public class ChatBotModel
 		}
 		else if (talkPostion == 3)
 		{
-			if(currentInput.contains("Viva La Vida"))
+			if((currentInput.contains("Viva La Vida")) || (currentInput.contains("viva la vida")))
 			{
 				result = "That is my favorite song!";
 			}
