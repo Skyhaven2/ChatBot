@@ -570,7 +570,7 @@ public class ChatBotModel
 			}
 			catch(NumberFormatException currentError)
 			{
-				JOptionPane.showMessageDialog(null, "Please type a numerical value.");
+				JOptionPane.showMessageDialog(null, "Please type a numerical integer value less than 2147483648.");
 			}
 		}
 		else if (talkPostion == 1)
