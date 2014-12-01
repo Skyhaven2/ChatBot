@@ -626,13 +626,70 @@ public class ChatBotModel
 		String result = "";
 		if (talkPostion == 0)
 		{
-			if (currentInput.contains(""))
+			if ((currentInput.contains("Jazz")) || (currentInput.contains("jazz")))
 			{
-				result = "You typed nothing";
+				result = "I love Jazz, who is your favorite musician";
+				talkPostion = 1;
+			}
+			else if((currentInput.contains("Soundtracks")) || (currentInput.contains("soundtracks")) || (currentInput.contains("Soundtrack")) || (currentInput.contains("soundtrack")))
+			{
+				result = "I like listening to soundtracks, what is your favorite soundtrack?";
+				talkPostion = 2;
 			}
 			else
 			{
-				result = "hi";
+				result = "That is not one of my favortie genres";
+				result = result + " What is your favorite song or piece?";
+				talkPostion = 3;
+			}
+		}
+		else if (talkPostion == 1)
+		{
+			if(currentInput.contains(("Charlie Parker")) || (currentInput.contains("Charlie parker")) || (currentInput.contains("charlie Parker")) || (currentInput.contains("charlie parker")))
+			{
+				result = "He is a cool bebop musician";
+			}
+			else if((currentInput.contains("James Carter")) || (currentInput.contains("James carter")) || (currentInput.contains("james Carter")) || (currentInput.contains("james carter")))
+			{
+				result = "He has an interesting style";
+			}
+			else if((currentInput.contains("Mile Davis")) || (currentInput.contains("Mile davis")) || (currentInput.contains("mile Davis")) || (currentInput.contains("mile davis")))
+			{
+				result = "His music has soul";
+			}
+			else
+			{
+				result = "That is an interesting jazz musician";
+			}
+			result = result + " What is your favorite song or piece?";
+			talkPostion = 3;
+		}
+		else if (talkPostion == 2)
+		{
+			if((currentInput.contains("Final Fantasy XIII")) || (currentInput.contains("Final Fantasy xiii")) || (currentInput.contains("Final fantasy XIII")) || (currentInput.contains("Final fantasy xiii")) || (currentInput.contains("final Fantasy XIII")) || (currentInput.contains("final Fantasy xiii")) || (currentInput.contains("final fantasy XIII")) || (currentInput.contains("final fantasy xiii")))
+			{
+				result = "This is one of my favorite soundtracks";
+			}
+			else if((currentInput.contains("Halo")) || (currentInput.contains("halo")))
+			{
+				result = "I like the percusion parts in halo";
+			}
+			else
+			{
+				result = "That is not one of my favorite soundtracks";
+			}
+			result = result + " What is your favorite song or piece?";
+			talkPostion = 3;
+		}
+		else if (talkPostion == 3)
+		{
+			if(currentInput.contains("Viva La Vida"))
+			{
+				result = "That is my favorite song!";
+			}
+			else
+			{
+				result = "That is a cool song";
 			}
 			result = result + " What do you want to talk about now?";
 			isStillDiscussing = false;
@@ -699,6 +756,11 @@ public class ChatBotModel
 		return userInformation;
 	}
 	
+	/**
+	 * This returns a ChatBot response if there is no mashing detected
+	 * @param currentInput The users current input
+	 * @return the ChatBot's response
+	 */
 	public static String noMashingDetected(String currentInput)
 	{
 		String noMashing = "Thank you for not mashing your keyboard with ";
@@ -709,6 +771,26 @@ public class ChatBotModel
 		return noMashing;
 	}
 	
+	/**
+	 * This returns a ChatBot response if there is mashing detected.
+	 * @param currentInput the user's current input
+	 * @return the ChatBot's response
+	 */
+	public static String mashingDetected(String currentInput)
+	{
+		String mashing = "Stop mashing your keyboard with ";
+		if (currentInput.length() > 1)
+		{
+			mashing += currentInput.substring(currentInput.length() / 3, currentInput.length() / 2);
+		}
+		return mashing;
+	}
+	
+	/**
+	 * This checks if the user is mashing the keys
+	 * @param userInput The users current input
+	 * @return If the user is or is not mashing the keys
+	 */
 	public static boolean mashChecker(String userInput)
 	{
 		boolean isMashing = false;

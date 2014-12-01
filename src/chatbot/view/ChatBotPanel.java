@@ -245,7 +245,11 @@ public class ChatBotPanel extends JPanel
 			{
 				if(ChatBotModel.mashChecker(InputTextField.getText()))
 				{
-					
+					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + ChatBotModel.mashingDetected(InputTextField.getText()));
+				}
+				else
+				{
+					chatBotArea.setText(chatBotArea.getText() + "\n" + "\n" + ChatBotModel.noMashingDetected(InputTextField.getText()));
 				}
 			}
 			
